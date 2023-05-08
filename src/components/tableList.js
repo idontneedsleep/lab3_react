@@ -1,18 +1,22 @@
 import React, {useEffect, useState} from "react";
+import ReactDOM from 'react-dom';
 import {List} from 'react-virtualized';
 
 export function TableList(props) {
     const [photos, setPhotos] = useState([]);
-    const listPhoto = photos.map((photo, key) => (
+    const listPhoto = photos
+        .filter(({ title }) => title.split(' ').length <= 7)
+        .map((photo, key) => (
         <tr key={key}>
             <td>
-                {photo.title}
-            </td>
-            <td>
-                <a href={photo.thumbnailUrl}>{photo.thumbnailUrl}</a>
+                <a href={photo.thumbnailUrl}>{photo.title}</a>
             </td>
         </tr>
     ));
+
+    const listHeight = 700;
+    const rowHeight = 80;
+    const rowWidth = 800;
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/photos')
@@ -22,10 +26,22 @@ export function TableList(props) {
             });
     }, []);
 
+    /*return (
+        <div className="list">
+            <List
+                width={rowWidth}
+                height={listHeight}
+                rowHeight={rowHeight}
+                rowRenderer={listPhoto}
+                rowCount={photos.length}
+            />
+        </div>
+    );*/
+
     return (
         <table>
         {listPhoto}
         </table>
-    );
+    );/**/
 }
-//<img key={item} src={item.thumbnailUrl} alt="" height={100} />
+//<img key={key} src={item.thumbnailUrl} alt="" height={100} />
