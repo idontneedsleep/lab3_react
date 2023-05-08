@@ -18,6 +18,9 @@ export function TableList(props) {
     const rowHeight = 80;
     const rowWidth = 800;
 
+    const [hasRender, setRender] = useState(false);
+    const show = React.useCallback(() => setRender(true), []);
+
     const renderRow = () => {
         return (
             photos
@@ -28,7 +31,8 @@ export function TableList(props) {
                             {photo.title}
                         </td>
                         <td>
-                            <a href={photo.thumbnailUrl}>{photo.thumbnailUrl}</a>
+                            <button onClick={show}>{photo.thumbnailUrl}</button>
+                            {hasRender && <Picture thumbnail={photo.thumbnailUrl} />}
                         </td>
                     </tr>
             ))
@@ -51,9 +55,7 @@ export function TableList(props) {
                 rowHeight={rowHeight}
                 rowRenderer={renderRow}
                 rowCount={photos.length}
-                overscanRowCount={3}
             />
         </div>
     );
 }
-//

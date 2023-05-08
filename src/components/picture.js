@@ -1,9 +1,11 @@
 import React from "react";
 
-const Picture = (item) => {
+function Picture(props) {
         return (
-            <img src={item.thumbnailUrl} alt="" height={100}/>
+            <img src={props.thumbnail} alt="" height={100}/>
         )
 }
-
+Picture.defaultProps = {
+        thumbnail : ''
+};
 export default Picture;
